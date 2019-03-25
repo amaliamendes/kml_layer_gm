@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="Amalia Mendes" content="US cities visited in 2018 with population estimates">
+    <title>Population circles in US cities visited in 2018</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // This creates population circles on the map, representing populations in each of the cities I visited in 2018
+      // Object created to list all cities with their respective population.
+      var citymap = {
+        washington: {
+          center: {lat: 38.903, lng: -77.040}, 
+          population: 702455
+        },
+        newyork: {
+          center: {lat: 40.714, lng: -74.005},
+          population: 8405837
+        },
+        atlanta: {
+          center: {lat: 33.743, lng: -84.387}, 
+          population: 486290
+        },
+		worcester: {
+		  center: {lat:42.263, lng: -71.802},
+		  population: 184000
+		},
+		nashville: {
+		  center: {lat:36.168, lng: -86.716}, 
+		  population: 291243
+		},
+		Denver: {
+		  center:{lat:39.679, lng: -104.878}, 
+		  population: 704621
+		},		   
+      };
+      function initMap() {
+        // Create the map.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 37.090, lng: -95.712},
+		  mapTypeId: 'hybrid'
+        });
+
+        // A circle is constructed for each of the values provided under the variable- citymap
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: Math.sqrt(citymap[city].population) * 100
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh-iXiJtRNupMXEKaHhHg3diLq9huMOiI&callback=initMap">
+    </script>
+  </body>
+</html>
